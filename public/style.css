@@ -1,8 +1,9 @@
 /* Style de base du body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background: url('https://i.pinimg.com/originals/c8/c2/a1/c8c2a1b8824997dd9d23f4a7412fb06b.jpg');
+    background-size: cover;
+    color: #333; /* Change la couleur du texte pour le rendre lisible */
 }
 
 /* Conteneur centré avec du padding */
