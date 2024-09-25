@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les gros pieds 🦶</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Les gros pieds 🦶</h1>
+        <div id="users" class="users-container"></div>
+    </div>
+
+    <script>
+        // Fonction pour récupérer les données des utilisateurs et les afficher
+        async function fetchUserData() {
+            try {
+                const response = await fetch('/api/users');
+                let users = await response.json();
+                
+                // Trier les utilisateurs par distance parcourue (en convertissant la distance en nombre)
+                users.sort((a, b) => parseFloat(b.distanceText) - parseFloat(a.distanceText));
+
+                const usersContainer = document.getElementById('users');
+                usersContainer.innerHTML = ''; // Vider l'élément avant d'y ajouter les utilisateurs
+
+                users.forEach((user, index) => {
+                    const userDiv = document.createElement('div');
+                    userDiv.classList.add('user');
+
+                    // Appliquer une classe différente pour les trois premiers
+                    if (index === 0) {
+                        userDiv.classList.add('gold');
+                    } else if (index === 1) {
+                        userDiv.classList.add('silver');
+                    } else if (index === 2) {
+                        userDiv.classList.add('bronze');
+                    }
+
+                    function classement() {
+                        if (index === 0) {
+                            return '🥇';
+                        }
+                        if (index === 1) {
+                            return '🥈';
+                        }
+                        if (index === 2) {
+                            return '🥉';
+                        }
+                    }
+
+                    userDiv.innerHTML = `
+                        <img src="${user.profileImage}" alt="${user.name}" class="avatar">
+                        <h2>${user.name}</h2>
+                        <p>Distance : <span class="text-border">${user.distanceText}</span> ${classement()}</p>
+                    `;
+
+                    usersContainer.appendChild(userDiv);
+                });
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données :', error);
+            }
+        }
+
+        // Appel de la fonction lors du chargement de la page
+        fetchUserData();
+    </script>
+</body>
+</html>

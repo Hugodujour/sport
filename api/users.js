@@ -1,10 +1,5 @@
-const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const path = require('path');
-
-const app = express();
-const port = 3000;
 
 class Person {
     constructor(name, id) {
@@ -15,7 +10,7 @@ class Person {
 
 const Hugo = new Person('Hugo', 139605772);
 const Valentin = new Person('Valentin', 100400572);
-const Dakoona = new Person('Dakoona', 147668769)
+const Dakoona = new Person('Dakoona', 147668769);
 
 const people = [Hugo, Valentin, Dakoona];
 
@@ -39,23 +34,11 @@ const getDistanceData = async (person) => {
   }
 };
 
-// Endpoint pour récupérer les stats des utilisateurs
-app.get('/api/users', async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const results = await Promise.all(people.map(person => getDistanceData(person)));
     res.json(results.filter(result => result !== null));
   } catch (error) {
     res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
   }
-});
-
-// Servir le fichier HTML et les fichiers statiques (CSS)
-app.use(express.static(path.join(__dirname)));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.listen(port, () => {
-  console.log(`Serveur démarré sur http://localhost:${port}`);
-});
+};
