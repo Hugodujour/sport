@@ -1,0 +1,70 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.users-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.user {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 15px 0;
+    color: #444;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+/* Classe pour le 1er en or */
+.gold p span{
+    color: #FFB02E; /* Or */
+    font-weight: bold;
+}
+
+/* Classe pour le 2e en argent */
+.silver p span{
+    color: #808080; /* Argent */
+    font-weight: bold;
+}
+
+/* Classe pour le 3e en bronze */
+.bronze p span {
+    color: #CD7F32; /* Bronze */
+    font-weight: bold;
+}
+
