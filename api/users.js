@@ -26,8 +26,9 @@ const getDistanceData = async (person) => {
 
     const distanceText = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').first().text();
     const profileImage = $('div.Avatar_imgWrapper__dQxfF img').attr('src');
+    const duree = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').last().text();
 
-    return { name: person.name, distanceText, profileImage };
+    return { name: person.name, distanceText, profileImage, duree };
   } catch (error) {
     console.error('Erreur lors de la récupération des données :', error);
     return null;
