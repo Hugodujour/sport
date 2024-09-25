@@ -1,70 +1,50 @@
-/* Styles généraux */
+/* Style de base du body */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-}
-
-h1 {
     color: #333;
-    margin-bottom: 30px;
 }
 
-.users-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
+/* Conteneur centré avec du padding */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.user {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 200px;
+/* Styles pour les cards d'utilisateurs */
+.card {
+    border: 2px solid transparent;
+    transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 
+/* Ajout de l'effet hover sur les cards */
+.card:hover {
+    transform: translateY(-10px);
+    border-color: #007bff; /* Couleur de l'effet hover */
+}
+
+/* Styles pour les avatars */
 .avatar {
+    border-radius: 50%;
     width: 100px;
     height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
+    margin: 0 auto;
 }
 
-h2 {
-    font-size: 1.5em;
-    margin: 15px 0;
-    color: #444;
+/* Styles pour les trois premiers utilisateurs */
+.gold .card {
+    border-color: gold;
 }
 
-p {
-    font-size: 1.2em;
+.silver .card {
+    border-color: silver;
 }
 
-/* Classe pour le 1er en or */
-.gold p span{
-    color: #FFB02E; /* Or */
+.bronze .card {
+    border-color: #cd7f32;
+}
+
+/* Texte en gras pour la distance */
+.text-border {
     font-weight: bold;
 }
-
-/* Classe pour le 2e en argent */
-.silver p span{
-    color: #808080; /* Argent */
-    font-weight: bold;
-}
-
-/* Classe pour le 3e en bronze */
-.bronze p span {
-    color: #CD7F32; /* Bronze */
-    font-weight: bold;
-}
-
