@@ -39,7 +39,7 @@ body {
     background-color: rgba(255,255,255,0.8);
     background-size: cover;
     background-blend-mode: lighten;
-    padding: var(--spacing-l);
+    padding: var(--spacing-m);
     height: 100vh;
 }
 
@@ -81,6 +81,13 @@ h1 {
     max-width: 780px;
     margin: 0 auto;
     height: 100%;
+}
+
+.leaderboard-container.loader {
+    margin-top: var(--spacing-xxl);
+    background-color: var(--color-white);
+    padding: var(--spacing-s);
+    border-radius: var(--spacing-xl);
 }
 
 .leaderboard-rank {

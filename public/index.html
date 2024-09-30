@@ -18,7 +18,7 @@
             🏃
         </div>
     </div>
-
+    <div class="leaderboard-container loader">Mesure de l'épaisseur des pieds... 🦶</div>
 </div>
 
 
@@ -33,9 +33,9 @@
             leaderboardData.sort((a, b) => parseFloat(b.distanceText) - parseFloat(a.distanceText));
 
             const leaderboardClassList = ['gold', 'silver', 'bronze'];
-
-            const leaderboardContainer = document.createElement('div');
-            leaderboardContainer.classList.add('leaderboard-container');
+            const leaderboardContainer = document.querySelector('.leaderboard-container');
+            leaderboardContainer.classList.remove('loader');
+            leaderboardContainer.innerHTML = '';
 
             leaderboardData.forEach((rank, index) => {
                 const seatContainer = document.createElement('div');
