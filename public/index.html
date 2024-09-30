@@ -10,29 +10,41 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Les gros pieds 🦶</h1>
+<div class="title-group">
+    <p>Qui aura les plus gros pieds ?</p>
+    <div class="title-row">
+        <h1></h1>
+        <div class="emoji-img">
+            🏃
+        </div>
+    </div>
 
-    <script>
-        // Fonction pour récupérer les données des utilisateurs et les afficher
-        async function fetchUserData() {
-            try {
-                const response = await fetch('/api/users');
-                let leaderboardData = await response.json();
-                
-                // Trier les utilisateurs par distance parcourue (en convertissant la distance en nombre)
-                leaderboardData.sort((a, b) => parseFloat(b.distanceText) - parseFloat(a.distanceText));
+</div>
 
-                const leaderboardClassList = ['gold', 'silver', 'bronze'];
 
-                const leaderboardContainer = document.createElement('div');
-                leaderboardContainer.classList.add('leaderboard-container');
+<script>
+    // Fonction pour récupérer les données des utilisateurs et les afficher
+    async function fetchUserData() {
+        try {
+            const response = await fetch('/api/users');
+            let leaderboardData = await response.json();
 
-                leaderboardData.forEach((rank, index) => {
-                    const seatContainer = document.createElement('div');
-                    seatContainer.classList.add('leaderboard-rank');
+            // Trier les utilisateurs par distance parcourue (en convertissant la distance en nombre)
+            leaderboardData.sort((a, b) => parseFloat(b.distanceText) - parseFloat(a.distanceText));
 
-                    seatContainer.innerHTML = `
-                        <img class="rank-avatar" src="${rank.profileImage}" alt="${rank.name}">
+            const leaderboardClassList = ['gold', 'silver', 'bronze'];
+
+            const leaderboardContainer = document.createElement('div');
+            leaderboardContainer.classList.add('leaderboard-container');
+
+            leaderboardData.forEach((rank, index) => {
+                const seatContainer = document.createElement('div');
+                seatContainer.classList.add('leaderboard-rank', leaderboardClassList[index]);
+
+                seatContainer.innerHTML = `
+                        <div class="rank-avatar">
+                            <img src="${rank.profileImage}" alt="${rank.name}">
+                        </div>
                         <div class="podium ${leaderboardClassList[index]}">
                             <p>${index + 1}</p>
                             <div class="rank-infos">
@@ -40,36 +52,45 @@
                         </div>
                         <p>${rank.name}</p>
                     `;
-                    leaderboardContainer.appendChild(seatContainer);
-                });
+                leaderboardContainer.appendChild(seatContainer);
+            });
 
-                leaderboardContainer.insertBefore(leaderboardContainer.childNodes[1], leaderboardContainer.firstChild);
-                document.body.appendChild(leaderboardContainer);
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données :', error);
-            }
+            leaderboardContainer.insertBefore(leaderboardContainer.childNodes[1], leaderboardContainer.firstChild);
+            document.body.appendChild(leaderboardContainer);
+
+            //cumuler les distances
+            let totalDistance = 0;
+            leaderboardData.forEach((rank) => {
+                totalDistance += parseFloat(rank.distanceText);
+            });
+
+
+
+        } catch (error) {
+            console.error('Erreur lors de la récupération des données :', error);
         }
+    }
 
-        // Appel de la fonction lors du chargement de la page
-        fetchUserData();
+    // Appel de la fonction lors du chargement de la page
+    fetchUserData();
 
-        // Afficher un titre avec le temps restant avant le prochain mois, s'il reste moins d'un jour, on affiche uniquement les heures et les minutes
-            const nextMonth = new Date();
-            nextMonth.setMonth(nextMonth.getMonth() + 1);
-            nextMonth.setDate(1);
-            nextMonth.setHours(0, 0, 0, 0);
+    // Afficher un titre avec le temps restant avant le prochain mois, s'il reste moins d'un jour, on affiche uniquement les heures et les minutes
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    nextMonth.setDate(1);
+    nextMonth.setHours(0, 0, 0, 0);
 
-            const now = new Date();
-            const diff = nextMonth - now;
+    const now = new Date();
+    const diff = nextMonth - now;
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-            const title = document.querySelector('h1');
-            title.innerText = days > 1 ?
-                `Il ne reste plus que ${days} jours et ${hours} heures pour devenir le maitre des pieds.` :
-                `Le maître des pieds sera élu dans ${hours} heures et ${minutes} minutes.`;
-    </script>
+    const title = document.querySelector('h1');
+    title.innerText = days > 1 ?
+        `Il ne reste plus que ${days} jours et ${hours} heures pour devenir le maitre des pieds.` :
+        `Le maître des pieds sera élu dans ${hours} heures et ${minutes} minutes.`;
+</script>
 </body>
 </html>

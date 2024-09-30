@@ -31,20 +31,46 @@
 body {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-xxl);
     font-family: "Inter", Arial, sans-serif;
     font-optical-sizing: auto;
     color: var(--color-black);
     background: url('https://i.pinimg.com/originals/c8/c2/a1/c8c2a1b8824997dd9d23f4a7412fb06b.jpg');
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255,255,255,0.8);
     background-size: cover;
     background-blend-mode: lighten;
-    padding: var(--spacing-m);
+    padding: var(--spacing-l);
+    height: 100vh;
 }
 
 h1 {
     font-size: var(--font-size-large);
     font-weight: 400;
+}
+
+.title-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-s);
+}
+
+.title-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-m);
+}
+
+.emoji-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    width: var(--spacing-xxl);
+    min-width: var(--spacing-xxl);
+    height: var(--spacing-xxl);
+    border-radius: var(--spacing-xxl);
+    background-color: var(--color-rank-silver);
 }
 
 .leaderboard-container {
@@ -54,7 +80,7 @@ h1 {
     width: 100%;
     max-width: 780px;
     margin: 0 auto;
-    min-height: 80vh;
+    height: 100%;
 }
 
 .leaderboard-rank {
@@ -68,9 +94,33 @@ h1 {
 }
 
 .rank-avatar {
-    border-radius: var(--spacing-xxl);
+    position: relative;
     width: var(--spacing-xxl);
     height: var(--spacing-xxl);
+}
+
+.rank-avatar::after {
+    position: absolute;
+    top: -24px;
+    right: -24px;
+    transform: rotate(35deg);
+    font-size: 40px;
+    text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
+    1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+}
+
+.leaderboard-rank.gold .rank-avatar::after {
+    content: "👑";
+}
+
+.leaderboard-rank.bronze .rank-avatar::after {
+    content: "💩";
+}
+
+.rank-avatar img {
+    border-radius: var(--spacing-xxl);
+    width: 100%;
+    height: 100%;
 }
 
 .podium {
@@ -87,17 +137,17 @@ h1 {
     text-align: center;
 }
 
-.podium.gold {
+.leaderboard-rank.gold .podium {
     background-color: var(--color-rank-gold);
     height: 100%;
 }
 
-.podium.silver {
+.leaderboard-rank.silver .podium {
     background-color: var(--color-rank-silver);
     height: 60%;
 }
 
-.podium.bronze {
+.leaderboard-rank.bronze .podium {
     background-color: var(--color-rank-bronze);
     height: 40%;
 }
@@ -120,15 +170,15 @@ h1 {
     color: var(--color-white);
 }
 
-.podium.gold .rank-distance {
+.leaderboard-rank.gold .podium .rank-distance {
     background-color: var(--color-rank-gold-high);
 }
 
-.podium.silver .rank-distance {
+.leaderboard-rank.silver .podium .rank-distance {
     background-color: var(--color-rank-silver-high);
 }
 
-.podium.bronze .rank-distance {
+.leaderboard-rank.bronze .podium .rank-distance {
     background-color: var(--color-rank-bronze-high);
 }
 
