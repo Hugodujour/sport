@@ -1,56 +1,142 @@
-/* Style de base du body */
-body {
-    font-family: Arial, sans-serif;
-    background: url('https://i.pinimg.com/originals/c8/c2/a1/c8c2a1b8824997dd9d23f4a7412fb06b.jpg');
-    background-size: cover;
-    color: #333; /* Change la couleur du texte pour le rendre lisible */
+:root {
+    --spacing-xs: 4px;
+    --spacing-s: 8px;
+    --spacing-m: 16px;
+    --spacing-l: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 72px;
+
+    --font-size-small: 12px;
+    --font-size-medium: 16px;
+    --font-size-large: 24px;
+
+    --color-rank-gold: #f9d14c;
+    --color-rank-silver: #b9e5fc;
+    --color-rank-bronze: #fcd6aa;
+
+    --color-rank-gold-high: #f3a114;
+    --color-rank-silver-high: #39c3f4;
+    --color-rank-bronze-high: #fd953f;
+
+    --color-white: white;
+    --color-black: #333333;
 }
 
-/* Conteneur centré avec du padding */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.card-text {
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
     margin: 0;
 }
 
-/* Styles pour les cards d'utilisateurs */
-.card {
-    border: 2px solid transparent;
-    background-color: white;
-    border-radius: 24px;
-    padding: 16px;
-    margin-bottom: 16px;
+body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    font-family: "Inter", Arial, sans-serif;
+    font-optical-sizing: auto;
+    color: var(--color-black);
+    background: url('https://i.pinimg.com/originals/c8/c2/a1/c8c2a1b8824997dd9d23f4a7412fb06b.jpg');
+    background-color: rgba(255,255,255,0.9);
+    background-size: cover;
+    background-blend-mode: lighten;
+    padding: var(--spacing-m);
 }
 
-/* Styles pour les avatars */
-.avatar {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
+h1 {
+    font-size: var(--font-size-large);
+    font-weight: 400;
+}
+
+.leaderboard-container {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-m);
+    width: 100%;
+    max-width: 780px;
     margin: 0 auto;
+    min-height: 80vh;
 }
 
-/* Styles pour les trois premiers utilisateurs */
-.gold .card {
-    border-color: gold;
+.leaderboard-rank {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: var(--spacing-m);
+    width: 100%;
+    font-weight: 600;
 }
 
-.silver .card {
-    border-color: silver;
+.rank-avatar {
+    border-radius: var(--spacing-xxl);
+    width: var(--spacing-xxl);
+    height: var(--spacing-xxl);
 }
 
-.bronze .card {
-    border-color: #cd7f32;
+.podium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spacing-m);
+    width: 100%;
+    position: relative;
+    padding: var(--spacing-s);
+    border-radius: var(--spacing-m);
+    font-size: var(--font-size-large);
+    text-align: center;
 }
 
-/* Texte en gras pour la distance */
-.text-border {
-    font-weight: bold;
+.podium.gold {
+    background-color: var(--color-rank-gold);
+    height: 100%;
+}
+
+.podium.silver {
+    background-color: var(--color-rank-silver);
+    height: 60%;
+}
+
+.podium.bronze {
+    background-color: var(--color-rank-bronze);
+    height: 40%;
+}
+
+.rank-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs);
+    background-color: var(--color-white);
+    border-radius: var(--spacing-l);
+    font-weight: 600;
+    font-size: var(--font-size-small);
+}
+
+.rank-distance {
+    padding: var(--spacing-xs) var(--spacing-s);
+    border-radius: var(--spacing-m);
+    color: var(--color-white);
+}
+
+.podium.gold .rank-distance {
+    background-color: var(--color-rank-gold-high);
+}
+
+.podium.silver .rank-distance {
+    background-color: var(--color-rank-silver-high);
+}
+
+.podium.bronze .rank-distance {
+    background-color: var(--color-rank-bronze-high);
+}
+
+@media only screen and (max-width: 480px) {
+    .rank-infos {
+        flex-direction: column;
+        width: 100%;
+        border-radius: 12px;
+        padding: var(--spacing-s);
+    }
 }

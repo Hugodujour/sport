@@ -4,71 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les gros pieds 🦶</title>
-    <!-- Lien Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRp23rXtSHf5mWIl5oo7Eh5VDP07u1nVpa/2h5pO2" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container text-center my-5">
-        <h1>Les gros pieds 🦶</h1>
-        <div id="users" class="row"></div>
-    </div>
-
-    <!-- Bootstrap JS (optionnel) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <h1>Les gros pieds 🦶</h1>
 
     <script>
         // Fonction pour récupérer les données des utilisateurs et les afficher
         async function fetchUserData() {
             try {
                 const response = await fetch('/api/users');
-                let users = await response.json();
+                let leaderboardData = await response.json();
                 
                 // Trier les utilisateurs par distance parcourue (en convertissant la distance en nombre)
-                users.sort((a, b) => parseFloat(b.distanceText) - parseFloat(a.distanceText));
+                leaderboardData.sort((a, b) => parseFloat(b.distanceText) - parseFloat(a.distanceText));
 
-                const usersContainer = document.getElementById('users');
-                usersContainer.innerHTML = ''; // Vider l'élément avant d'y ajouter les utilisateurs
+                const leaderboardClassList = ['gold', 'silver', 'bronze'];
 
-                users.forEach((user, index) => {
-                    const userDiv = document.createElement('div');
-                    userDiv.classList.add('col-md-4', 'mb-4'); // Utilisation du système de grille Bootstrap
+                const leaderboardContainer = document.createElement('div');
+                leaderboardContainer.classList.add('leaderboard-container');
 
-                    // Appliquer une classe différente pour les trois premiers
-                    if (index === 0) {
-                        userDiv.classList.add('gold');
-                    } else if (index === 1) {
-                        userDiv.classList.add('silver');
-                    } else if (index === 2) {
-                        userDiv.classList.add('bronze');
-                    }
+                leaderboardData.forEach((rank, index) => {
+                    const seatContainer = document.createElement('div');
+                    seatContainer.classList.add('leaderboard-rank');
 
-                    function classement() {
-                        if (index === 0) {
-                            return '🥇';
-                        }
-                        if (index === 1) {
-                            return '🥈';
-                        }
-                        if (index === 2) {
-                            return '🥉';
-                        }
-                    }
-
-                    // Utilisation de la classe card de Bootstrap pour styliser les utilisateurs
-                    userDiv.innerHTML = `
-                        <div class="card h-100 text-center">
-                            <img src="${user.profileImage}" alt="${user.name}" class="card-img-top avatar">
-                            <div class="card-body">
-                                <h4 class="card-title">${user.name}</h4>
-                                <p class="card-text">Distance : <span class="text-border">${user.distanceText}</span> ${classement()}</p>
-                                <p>Durée de déplacement : <span class="text-border">${user.duree}</span></p>
-                            </div>
+                    seatContainer.innerHTML = `
+                        <img class="rank-avatar" src="${rank.profileImage}" alt="${rank.name}">
+                        <div class="podium ${leaderboardClassList[index]}">
+                            <p>${index + 1}</p>
+                            <div class="rank-infos">
+                                <div class="rank-distance">${rank.distanceText}</div> en ${rank.duree}</div>
                         </div>
+                        <p>${rank.name}</p>
                     `;
-
-                    usersContainer.appendChild(userDiv);
+                    leaderboardContainer.appendChild(seatContainer);
                 });
+
+                leaderboardContainer.insertBefore(leaderboardContainer.childNodes[1], leaderboardContainer.firstChild);
+                document.body.appendChild(leaderboardContainer);
             } catch (error) {
                 console.error('Erreur lors de la récupération des données :', error);
             }
@@ -76,6 +52,24 @@
 
         // Appel de la fonction lors du chargement de la page
         fetchUserData();
+
+        // Afficher un titre avec le temps restant avant le prochain mois, s'il reste moins d'un jour, on affiche uniquement les heures et les minutes
+            const nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            nextMonth.setDate(1);
+            nextMonth.setHours(0, 0, 0, 0);
+
+            const now = new Date();
+            const diff = nextMonth - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            const title = document.querySelector('h1');
+            title.innerText = days > 1 ?
+                `Il ne reste plus que ${days} jours et ${hours} heures pour devenir le maitre des pieds.` :
+                `Le maître des pieds sera élu dans ${hours} heures et ${minutes} minutes.`;
     </script>
 </body>
 </html>
