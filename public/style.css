@@ -41,6 +41,7 @@ body {
     background-blend-mode: lighten;
     padding: var(--spacing-m);
     height: 100vh;
+    overflow: hidden;
 }
 
 h1 {
