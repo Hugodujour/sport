@@ -4,78 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les gros pieds 🦶</title>
-    <!-- Lien Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRp23rXtSHf5mWIl5oo7Eh5VDP07u1nVpa/2h5pO2" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container text-center my-5">
-        <h1>Les gros pieds 🦶</h1>
-        <div id="users" class="row"></div>
+<div class="title-group">
+    <p>Qui aura les plus gros pieds ?</p>
+    <div class="title-row">
+        <h1></h1>
+        <div class="emoji-img">
+            🏃
+        </div>
     </div>
+    <div class="leaderboard-container loader">Mesure de l'épaisseur des pieds... 🦶</div>
+</div>
 
-    <!-- Bootstrap JS (optionnel) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        // Fonction pour récupérer les données des utilisateurs et les afficher
-        async function fetchUserData() {
-            try {
-                const response = await fetch('/api/users');
-                let users = await response.json();
-                
-                // Trier les utilisateurs par distance parcourue (en convertissant la distance en nombre)
-                const hey = users.sort((a, b) => parseFloat(b.duree.split(':').join('')) - parseFloat(a.duree.split(':').join('')));
+<script>
+    // Fonction pour récupérer les données des utilisateurs et les afficher
+    async function fetchUserData() {
+        try {
+            const response = await fetch('/api/users');
+            let leaderboardData = await response.json();
 
-                const usersContainer = document.getElementById('users');
-                usersContainer.innerHTML = ''; // Vider l'élément avant d'y ajouter les utilisateurs
+            // Trier les utilisateurs par distance parcourue (en convertissant la distance en nombre)
+            leaderboardData.sort((a, b) => parseFloat(b.duree.split(':').join('')) - parseFloat(a.distanceText.split(':').join('')));
 
-                users.forEach((user, index) => {
-                    const userDiv = document.createElement('div');
-                    userDiv.classList.add('col-md-4', 'mb-4'); // Utilisation du système de grille Bootstrap
+            const leaderboardClassList = ['gold', 'silver', 'bronze'];
+            const leaderboardContainer = document.querySelector('.leaderboard-container');
+            leaderboardContainer.classList.remove('loader');
+            leaderboardContainer.innerHTML = '';
 
-                    // Appliquer une classe différente pour les trois premiers
-                    if (index === 0) {
-                        userDiv.classList.add('gold');
-                    } else if (index === 1) {
-                        userDiv.classList.add('silver');
-                    } else if (index === 2) {
-                        userDiv.classList.add('bronze');
-                    }
+            leaderboardData.forEach((rank, index) => {
+                const seatContainer = document.createElement('div');
+                seatContainer.classList.add('leaderboard-rank', leaderboardClassList[index]);
 
-                    function classement() {
-                        if (index === 0) {
-                            return '🥇';
-                        }
-                        if (index === 1) {
-                            return '🥈';
-                        }
-                        if (index === 2) {
-                            return '🥉';
-                        }
-                    }
-
-                    // Utilisation de la classe card de Bootstrap pour styliser les utilisateurs
-                    userDiv.innerHTML = `
-                        <div class="card h-100 text-center">
-                            <img src="${user.profileImage}" alt="${user.name}" class="card-img-top avatar">
-                            <div class="card-body">
-                                <h4 class="card-title">${user.name}</h4>
-                                <p class="card-text">Distance : <span class="text-border">${user.distanceText}</span></p>
-                                <p>Activité : <span class="text-border">${user.duree}</span>${classement()}</p>
-                            </div>
+                seatContainer.innerHTML = `
+                        <div class="rank-avatar">
+                            <img src="${rank.profileImage}" alt="${rank.name}">
                         </div>
+                        <div class="podium ${leaderboardClassList[index]}">
+                            <p>${index + 1}</p>
+                            <div class="rank-infos">
+                                <div class="rank-distance">${rank.duree}</div>${rank.distanceText}</div>
+                        </div>
+                        <p>${rank.name}</p>
                     `;
+                leaderboardContainer.appendChild(seatContainer);
+            });
 
-                    usersContainer.appendChild(userDiv);
-                });
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données :', error);
-            }
+            leaderboardContainer.insertBefore(leaderboardContainer.childNodes[1], leaderboardContainer.firstChild);
+            document.body.appendChild(leaderboardContainer);
+
+            //cumuler les distances
+            let totalDistance = 0;
+            leaderboardData.forEach((rank) => {
+                totalDistance += parseFloat(rank.distanceText);
+            });
+
+
+
+        } catch (error) {
+            console.error('Erreur lors de la récupération des données :', error);
         }
+    }
 
-        // Appel de la fonction lors du chargement de la page
-        fetchUserData();
-    </script>
+    // Appel de la fonction lors du chargement de la page
+    fetchUserData();
+
+    // Afficher un titre avec le temps restant avant le prochain mois, s'il reste moins d'un jour, on affiche uniquement les heures et les minutes
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    nextMonth.setDate(1);
+    nextMonth.setHours(0, 0, 0, 0);
+
+    const now = new Date();
+    const diff = nextMonth - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    const title = document.querySelector('h1');
+    title.innerText = days > 1 ?
+        `Il ne reste plus que ${days} jours et ${hours} heures pour devenir le maitre des pieds.` :
+        `Le maître des pieds sera élu dans ${hours} heures et ${minutes} minutes.`;
+</script>
 </body>
 </html>

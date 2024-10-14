@@ -17,7 +17,7 @@ class Person {
 // Liste des personnes
 const Hugo = new Person('Hugo', 139605772);
 const Valentin = new Person('Valentin', 100400572);
-const Dakoona = new Person('Dakoona', 147668769);
+const Dakoona = new Person('Clément', 147668769);
 
 const people = [Hugo, Valentin, Dakoona];
 
@@ -28,7 +28,7 @@ const getDistanceData = async (person) => {
         const $ = cheerio.load(data);
         const distanceText = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').first().text();
         const profileImage = $('div.Avatar_imgWrapper__dQxfF img').attr('src');
-        const duree = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').last().text();
+        const duree = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').last().text().slice(0, -3).replace(":", "h");
         
         
         

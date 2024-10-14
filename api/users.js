@@ -10,7 +10,7 @@ class Person {
 
 const Hugo = new Person('Hugo', 139605772);
 const Valentin = new Person('Valentin', 100400572);
-const Dakoona = new Person('Dakoona', 147668769);
+const Dakoona = new Person('Clément', 147668769);
 
 const people = [Hugo, Valentin, Dakoona];
 

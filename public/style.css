@@ -1,56 +1,199 @@
-/* Style de base du body */
-body {
-    font-family: Arial, sans-serif;
-    background: url('https://i.pinimg.com/originals/c8/c2/a1/c8c2a1b8824997dd9d23f4a7412fb06b.jpg');
-    background-size: cover;
-    color: #333; /* Change la couleur du texte pour le rendre lisible */
+:root {
+    --spacing-xs: 4px;
+    --spacing-s: 8px;
+    --spacing-m: 16px;
+    --spacing-l: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 72px;
+
+    --font-size-small: 12px;
+    --font-size-medium: 16px;
+    --font-size-large: 24px;
+
+    --color-rank-gold: linear-gradient(to bottom, #ebcb3c, #d69122, #bf7600);
+    --color-rank-silver: linear-gradient(to bottom, #ededed, #bdbdbd);
+    --color-rank-bronze: linear-gradient(to bottom, #db6c2b, #673208);
+    
+    --color-rank-gold-high: #d69122;
+    --color-rank-silver-high: #a8a8a8;
+    --color-rank-bronze-high: #673208;
+
+    --color-white: white;
+    --color-black: #333333;
 }
 
-/* Conteneur centré avec du padding */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.card-text {
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
     margin: 0;
 }
 
-/* Styles pour les cards d'utilisateurs */
-.card {
-    border: 2px solid transparent;
-    background-color: white;
-    border-radius: 24px;
-    padding: 16px;
-    margin-bottom: 16px;
+body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxl);
+    font-family: "Inter", Arial, sans-serif;
+    font-optical-sizing: auto;
+    color: var(--color-black);
+    background: url('https://i.pinimg.com/originals/c8/c2/a1/c8c2a1b8824997dd9d23f4a7412fb06b.jpg') no-repeat center fixed;
+    background-color: rgba(255,255,255,0.4);
+    background-size: cover;
+    background-blend-mode: lighten;
+    padding: var(--spacing-m);
+    height: 100vh;
 }
 
-/* Styles pour les avatars */
-.avatar {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
+h1 {
+    font-size: var(--font-size-large);
+    font-weight: 400;
+}
+
+.title-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-s);
+}
+
+.title-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-m);
+}
+
+.emoji-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    width: var(--spacing-xxl);
+    min-width: var(--spacing-xxl);
+    height: var(--spacing-xxl);
+    border-radius: var(--spacing-xxl);
+    background-color: var(--color-rank-silver);
+}
+
+.leaderboard-container {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-m);
+    width: 100%;
+    max-width: 780px;
     margin: 0 auto;
+    height: 100%;
 }
 
-/* Styles pour les trois premiers utilisateurs */
-.gold .card {
-    border-color: gold;
+.leaderboard-container.loader {
+    margin-top: var(--spacing-xxl);
+    background-color: var(--color-white);
+    padding: var(--spacing-s);
+    border-radius: var(--spacing-xl);
 }
 
-.silver .card {
-    border-color: silver;
+.leaderboard-rank {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: var(--spacing-m);
+    width: 100%;
+    font-weight: 600;
 }
 
-.bronze .card {
-    border-color: #cd7f32;
+.rank-avatar {
+    position: relative;
+    width: var(--spacing-xxl);
+    height: var(--spacing-xxl);
 }
 
-/* Texte en gras pour la distance */
-.text-border {
-    font-weight: bold;
+.rank-avatar::after {
+    position: absolute;
+    top: -24px;
+    right: -24px;
+    transform: rotate(35deg);
+    font-size: 40px;
+    text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
+    1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+}
+
+.leaderboard-rank.gold .rank-avatar::after {
+    content: "👑";
+}
+
+.leaderboard-rank.bronze .rank-avatar::after {
+    content: "💩";
+}
+
+.rank-avatar img {
+    border-radius: var(--spacing-xxl);
+    width: 100%;
+    height: 100%;
+}
+
+.podium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spacing-m);
+    width: 100%;
+    position: relative;
+    padding: var(--spacing-s);
+    border-radius: var(--spacing-m);
+    font-size: var(--font-size-large);
+    text-align: center;
+}
+
+.leaderboard-rank.gold .podium {
+    background: var(--color-rank-gold);
+    height: 100%;
+}
+
+.leaderboard-rank.silver .podium {
+    background: var(--color-rank-silver);
+    height: 60%;
+}
+
+.leaderboard-rank.bronze .podium {
+    background: var(--color-rank-bronze);
+    height: 40%;
+}
+
+.rank-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs);
+    background-color: var(--color-white);
+    border-radius: var(--spacing-l);
+    font-weight: 600;
+    font-size: var(--font-size-small);
+}
+
+.rank-distance {
+    padding: var(--spacing-xs) var(--spacing-s);
+    border-radius: var(--spacing-m);
+    color: var(--color-white);
+}
+
+.leaderboard-rank.gold .podium .rank-distance {
+    background-color: var(--color-rank-gold-high);
+}
+
+.leaderboard-rank.silver .podium .rank-distance {
+    background-color: var(--color-rank-silver-high);
+}
+
+.leaderboard-rank.bronze .podium .rank-distance {
+    background-color: var(--color-rank-bronze-high);
+}
+
+@media only screen and (max-width: 480px) {
+    .rank-infos {
+        flex-direction: column;
+        width: 100%;
+        border-radius: 12px;
+        padding: var(--spacing-s);
+    }
 }
