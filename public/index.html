@@ -25,7 +25,7 @@
                 let users = await response.json();
                 
                 // Trier les utilisateurs par distance parcourue (en convertissant la distance en nombre)
-                users.sort((a, b) => parseFloat(b.distanceText) - parseFloat(a.distanceText));
+                const hey = users.sort((a, b) => parseFloat(b.duree.split(':').join('')) - parseFloat(a.duree.split(':').join('')));
 
                 const usersContainer = document.getElementById('users');
                 usersContainer.innerHTML = ''; // Vider l'élément avant d'y ajouter les utilisateurs
@@ -61,8 +61,8 @@
                             <img src="${user.profileImage}" alt="${user.name}" class="card-img-top avatar">
                             <div class="card-body">
                                 <h4 class="card-title">${user.name}</h4>
-                                <p class="card-text">Distance : <span class="text-border">${user.distanceText}</span> ${classement()}</p>
-                                <p>Durée de déplacement : <span class="text-border">${user.duree}</span></p>
+                                <p class="card-text">Distance : <span class="text-border">${user.distanceText}</span></p>
+                                <p>Activité : <span class="text-border">${user.duree}</span>${classement()}</p>
                             </div>
                         </div>
                     `;
