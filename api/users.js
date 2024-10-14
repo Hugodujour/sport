@@ -26,7 +26,7 @@ const getDistanceData = async (person) => {
 
     const distanceText = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').first().text();
     const profileImage = $('div.Avatar_imgWrapper__dQxfF img').attr('src');
-    const duree = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').last().text();
+    const duree = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').last().text().slice(0, -3).replace(":", "h");
 
     return { name: person.name, distanceText, profileImage, duree };
   } catch (error) {
