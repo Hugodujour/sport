@@ -36,7 +36,7 @@ body {
     font-optical-sizing: auto;
     color: var(--color-black);
     background: url("pied.png") no-repeat center fixed;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.8);
     background-size: cover;
     background-blend-mode: lighten;
     padding: var(--spacing-m);
