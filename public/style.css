@@ -50,6 +50,10 @@ h1 {
     font-weight: 400;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .title-group {
     display: flex;
     flex-direction: column;
