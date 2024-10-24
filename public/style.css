@@ -35,7 +35,7 @@ body {
     font-family: "Inter", Arial, sans-serif;
     font-optical-sizing: auto;
     color: var(--color-black);
-    background: url("https://emoji.supply/wallpaper/?pattern=foam&order=ordered&emoji=%25F0%259F%2591%259F%25F0%259F%25A6%25B6&texture=monochrome&color=%2329adff&scale=0.85") no-repeat center fixed;
+    background: url("pied.png") no-repeat center fixed;
     background-size: cover;
     background-blend-mode: lighten;
     padding: var(--spacing-m);
