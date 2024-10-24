@@ -121,6 +121,10 @@ h1 {
     content: "👑";
 }
 
+.leaderboard-rank.silver .rank-avatar::after {
+    content: "😖";
+}
+
 .leaderboard-rank.bronze .rank-avatar::after {
     content: "💩";
 }
