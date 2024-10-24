@@ -30,7 +30,7 @@
             let leaderboardData = await response.json();
 
             // Trier les utilisateurs par distance parcourue (en convertissant la distance en nombre)
-            leaderboardData.sort((a, b) => parseFloat(b.duree.split(':').join('')) - parseFloat(a.distanceText.split(':').join('')));
+            leaderboardData.sort((a, b) => parseFloat(b.duree.split(':').join('')) - parseFloat(a.duree.split(':').join('')));
 
             const leaderboardClassList = ['gold', 'silver', 'bronze'];
             const leaderboardContainer = document.querySelector('.leaderboard-container');
