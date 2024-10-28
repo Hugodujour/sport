@@ -12,15 +12,19 @@
 <body>
 <div class="title-group">
     
+ 
+    
     <div class="title-row">
         <h1></h1>
-        <div class="emoji-img">
-            🏃
-        </div>
+    </div>
+    <div class="total">
+
     </div>
     <div class="leaderboard-container loader">
-        <p class="text-center">Recherche des pieds... 🦶</p>
+        
     </div>
+    <p id="total">Recherche des pieds... 🦶</p>
+    
 </div>
 
 
@@ -66,6 +70,9 @@
                 totalDistance += parseFloat(rank.distanceText);
             });
 
+            const total = document.getElementById("total");
+            total.innerText = "🏃 " + Math.floor(totalDistance) + " km";
+
 
 
         } catch (error) {
@@ -93,6 +100,10 @@
     title.innerText = days > 1 ?
         `Plus que ${days} jours et ${hours} heures pour devenir le maitre des pieds.` :
         `Le maître des pieds sera élu dans ${hours} heures et ${minutes} minutes.`;
+
+    
+    
+
 </script>
 </body>
 </html>

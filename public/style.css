@@ -90,10 +90,7 @@ h1 {
 }
 
 .leaderboard-container.loader {
-    margin-top: var(--spacing-xxl);
-    background-color: var(--color-white);
-    padding: var(--spacing-s);
-    border-radius: var(--spacing-xl);
+
 }
 
 .leaderboard-rank {
@@ -206,4 +203,11 @@ h1 {
         border-radius: 12px;
         padding: var(--spacing-s);
     }
+}
+
+#total {
+    background-color: white;
+    padding: var(--spacing-s);
+    border-radius: 12px ;
+    text-align: center;
 }

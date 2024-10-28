@@ -30,9 +30,6 @@ const getDistanceData = async (person) => {
         const profileImage = $('div.Avatar_imgWrapper__dQxfF img').attr('src');
         const duree = $('div.ProfileEveryone_metrics__wnvzB .Stat_statValue__3_kAe').last().text().slice(0, -3).replace(":", "h");
         
-        
-        
-        
 
         
 
