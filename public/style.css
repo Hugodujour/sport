@@ -224,8 +224,8 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 400px;
+    width: 93%;
+    max-width: auto;
     background-color: white;
     border-radius: 12px;
     padding: 20px;
@@ -237,10 +237,14 @@ h1 {
     margin: 10px 0;
 }
 #actions button {
-    margin: 5px;
-    padding: 10px;
+    background-color: var(--color-rank-silver-high);
+    padding: var(--spacing-s);
+    border: none;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 1.2em;
 }
 
-.monster-img {
-    height: 3rem;
+#actions button:active {
+    background-color: #333333;
 }
