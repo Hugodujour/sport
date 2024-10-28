@@ -216,6 +216,8 @@ h1 {
     padding: var(--spacing-s);
     border-radius: 12px ;
     text-align: center;
+    font-weight: 600;
+    font-size: 1.2;
 }
 
 #battle-container {
