@@ -22,13 +22,25 @@
     </div>
     <div class="leaderboard-container loader">
         
+        <p class="text-center"></p>
     </div>
     <p id="total">Recherche des pieds... 🦶</p>
-    
+</div>
+
+<div id="battle-container">
+    <h2>Un monstre a été trouvé ⚔️</h2>
+    <p id="monster-hp">🧌 : 20</p>
+    <img class="monster-img" src="https://media.tenor.com/YR5iE5r98JoAAAAe/goblin-gobgobgob.png" />
+    <p id="player-hp">🏃 : <span id="player-hp-value"></span>❤️</p>
+    <div id="actions">
+        <button onclick="attackMonster()">Attaquer</button>
+        <button onclick="endBattle()">Fuir</button>
+    </div>
 </div>
 
 
 <script>
+    let totalDistance = 0;
     // Fonction pour récupérer les données des utilisateurs et les afficher
     async function fetchUserData() {
         try {
@@ -65,7 +77,7 @@
             document.body.appendChild(leaderboardContainer);
 
             //cumuler les distances
-            let totalDistance = 0;
+            
             leaderboardData.forEach((rank) => {
                 totalDistance += parseFloat(rank.distanceText);
             });
@@ -73,11 +85,60 @@
             const total = document.getElementById("total");
             total.innerText = "🏃 " + Math.floor(totalDistance) + " km";
 
+            total.addEventListener('click', startBattle);
+
 
 
         } catch (error) {
             console.error('Erreur lors de la récupération des données :', error);
         }
+    }
+
+        // Initialiser les variables pour le combat
+        let playerHP = 0;
+    let monsterHP = 20;
+
+    // Fonction pour démarrer le combat
+    function startBattle() {
+        playerHP = Math.floor(totalDistance);  // Points de vie du joueur basés sur les kilomètres
+        monsterHP = 200;
+        document.getElementById("player-hp-value").innerText = playerHP;
+        document.getElementById("monster-hp").innerText = "🧌 : " + monsterHP + "💚";
+
+        // Afficher le conteneur de combat
+        document.getElementById('battle-container').style.display = 'block';
+    }
+
+    // Fonction pour attaquer le monstre
+    function attackMonster() {
+        if (monsterHP > 0 && playerHP > 0) {
+            const playerAttack = Math.floor(Math.random() * 5) + 1;
+            const monsterAttack = Math.floor(Math.random() * 4) + 1;
+
+            // Infliger des dégâts au monstre
+            monsterHP -= playerAttack;
+            document.getElementById("monster-hp").innerText = "🧌 : " + Math.max(0, monsterHP) + "💚";
+
+            // Si le monstre est encore en vie, il attaque
+            if (monsterHP > 0) {
+                playerHP -= monsterAttack;
+                document.getElementById("player-hp-value").innerText = Math.max(0, playerHP);
+            }
+
+            // Vérification de fin de combat
+            if (monsterHP <= 0) {
+                alert("Vous avez vaincu le monstre !");
+                endBattle();
+            } else if (playerHP <= 0) {
+                alert("Vous avez perdu le combat...");
+                endBattle();
+            }
+        }
+    }
+
+    // Fonction pour terminer le combat
+    function endBattle() {
+        document.getElementById('battle-container').style.display = 'none';
     }
 
     // Appel de la fonction lors du chargement de la page

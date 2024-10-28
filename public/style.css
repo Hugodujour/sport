@@ -211,3 +211,30 @@ h1 {
     border-radius: 12px ;
     text-align: center;
 }
+
+#battle-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+}
+#monster-hp, #player-hp {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+#actions button {
+    margin: 5px;
+    padding: 10px;
+}
+
+.monster-img {
+    height: 3rem;
+}
