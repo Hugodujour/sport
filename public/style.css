@@ -36,12 +36,18 @@ body {
     font-optical-sizing: auto;
     color: var(--color-black);
     background: url("pied.png");
+    background-size: contain;
+    background-position: center;
     background-attachment: fixed;
-    background-color: rgba(255,255,255,0.7);
-    background-blend-mode: lighten;
+    background-color: rgba(0,0,0,0.8);
+    background-blend-mode: darken;
     padding: var(--spacing-m);
     height: 100vh;
     overflow: hidden;
+}
+
+.white {
+    color: white;
 }
 
 

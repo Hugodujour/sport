@@ -68,7 +68,7 @@
                             <div class="rank-infos">
                                 <div class="rank-distance">${rank.duree}</div>${rank.distanceText}</div>
                         </div>
-                        <p>${rank.name}</p>
+                        <p class="white">${rank.name}</p>
                     `;
                 leaderboardContainer.appendChild(seatContainer);
             });
@@ -158,6 +158,7 @@
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
     const title = document.querySelector('h1');
+    title.classList.add("white");
     title.innerText = days > 1 ?
         `Plus que ${days} jours et ${hours} heures pour devenir le maitre des pieds.` :
         `Le maître des pieds sera élu dans ${hours} heures et ${minutes} minutes.`;
