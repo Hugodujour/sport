@@ -42,8 +42,7 @@ body {
     background-color: rgba(0,0,0,0.8);
     background-blend-mode: darken;
     padding: var(--spacing-m);
-    height: 100vh;
-    overflow: hidden;
+    height: 95vh;
 }
 
 .white {
